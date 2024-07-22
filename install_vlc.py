@@ -19,12 +19,10 @@ if installer_response.status_code == 200:
     installer_content = installer_response.content
 else:
     raise Exception("Failed to download VLC installer.")
-
 # Step 3: Verify the Integrity of the Downloaded VLC Installer
 computed_hash = hashlib.sha256(installer_content).hexdigest()
 if computed_hash != expected_hash:
     raise Exception("Hash values do not match. Aborting installation.")
-
 # Step 4: Save the Downloaded VLC Installer to Disk
 temp_path = os.path.join(os.getenv('TEMP'), 'vlc-3.0.17.4-win64.exe')
 with open(temp_path, 'wb') as file:
